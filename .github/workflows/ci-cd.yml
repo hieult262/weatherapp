@@ -65,6 +65,7 @@ jobs:
 
       - name: Tag new version
         run: |
+          git fetch --prune --unshallow --tags || git fetch --tags
           LATEST_TAG=$(git describe --tags $(git rev-list --tags --max-count-1) || echo "v1.0.0")
           VERSION=${LATEST_TAG#v}
           MAJOR=$(echo $VERSION | cut -d. -f1)
