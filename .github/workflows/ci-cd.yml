@@ -100,6 +100,6 @@ jobs:
           aws eks --region $AWS_REGION update-kubeconfig --name $CLUSTER_NAME
       
       - name: Deploy to EKS with kubectl
-        run:
+        run: |
           kubectl set image deployment/weatherapp weather-app=$IMAGE:${{ github.sha }} -n $NAMESPACE
           kubectl rollout status deployment weatherapp -n $NAMESPACE
