@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weatherapp
+  namespace: weather-app
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels: 
+      app: weatherapp
+  template:
+    metadata: 
+      labels:
+        app: weatherapp
+    spec:
+      serviceAccount: weather-app
+      # topologySpreadConstraints:
+      #   - maxSkew: 1
+      #     topologyKey: "kubernetes.io/hostname"
+      #     whenUnsatisfiable: DoNotSchedule
+      #     # Apply the rule only to pod weatherapp
+      #     labelSelector:
+      #       matchLabels:
+      #         app: weatherapp
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: topology.kubernetes.io/zone
+                  operator: In 
+                  values:
+                    - ap-southeast-2a
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                    - ip-172-0-1-29.ap-southeast-2.compute.internal
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+      containers:
+      - name: weather-app
+        image: hieult262/weatherapp:latest
+        resources:
+          requests:
+            cpu: "256m"
+            memory: "512M"
+          limits:
+            cpu: "512m"
+            memory: "1024M"
+        ports:
+          - containerPort: 5000
+        envFrom:
+          - secretRef:
+              name: weather-secret
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: false
+          capabilities:
+            drop: ["ALL"]
+      

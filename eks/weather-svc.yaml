@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgre
+  namespace: weather-app
+spec:
+  type: ClusterIP
+  selector:
+    app: postgre-database
+  ports:
+  - port: 5432
+    targetPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: weather-app
+  namespace: weather-app
+spec:
+  type: ClusterIP
+  selector:
+    app: weatherapp
+  ports:
+  - port: 80
+    targetPort: 5000

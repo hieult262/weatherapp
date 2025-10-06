@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgre
+  namespace: weather-app
+spec:
+  serviceName: "postgre"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgre-database
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: postgre-database
+    spec:
+      serviceAccount: weather-app
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: topology.kubernetes.io/zone
+                  operator: In 
+                  values:
+                    - ap-southeast-2a
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                    - ip-172-0-1-29.ap-southeast-2.compute.internal
+      securityContext:
+        runAsUser: 70
+        runAsGroup: 70
+        fsGroup: 70
+        runAsNonRoot: true
+      containers:
+      - name: postgre
+        image: postgres:18rc1-alpine
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "200m"
+            memory: "512Mi"
+        ports:
+          - containerPort: 5432
+        envFrom:
+          - secretRef: 
+              name: weather-secret
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: false
+          capabilities:
+            drop: ["ALL"]
+        volumeMounts:
+          - name: postgre-data
+            mountPath: /var/lib/postgresql
+          # - name: postgresql-tls
+          #   mountPath: /etc/postgres/certs
+          #   readOnly: tru
+      volumes:
+        # - name: postgresql-tls
+        #   secret:
+        #     secretName: postgresql-tls
+        #     defaultMode: 0600
+        - name: postgre-data
+          persistentVolumeClaim:
+            claimName: postgre-pvc
+
+      
+
+
+      
+
