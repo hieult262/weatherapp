@@ -1,0 +1,153 @@
+/* Reset cơ bản */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container chính */
+body {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+    color: #333;
+}
+
+.admin-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 1000px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Tiêu đề */
+.admin-container h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #2d3748;
+}
+
+/* Search Form */
+.search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-form input {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 6px 0 0 6px;
+    outline: none;
+    flex: 1;
+    max-width: 300px;
+}
+
+.btn-search {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0 6px 6px 0;
+    background: #3182ce;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-search:hover {
+    background: #2b6cb0;
+}
+
+/* Table */
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user-table th, .user-table td {
+    padding: 14px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.user-table th {
+    background: #4c51bf;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+
+.user-table tr:nth-child(even) {
+    background: #f7fafc;
+}
+
+.user-table tr:hover {
+    background: #edf2f7;
+}
+
+/* Buttons */
+.btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.btn-danger {
+    background: #e53e3e;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #c53030;
+}
+
+.btn-warning {
+    background: #ed8936;
+    color: white;
+}
+
+.btn-warning:hover {
+    background: #dd6b20;
+}
+
+.btn-logout {
+    width: 100%;
+    margin-top: 15px;
+    background: #2d3748;
+    color: white;
+}
+
+.btn-logout:hover {
+    background: #1a202c;
+}
+
+/* Message */
+.message {
+    text-align: center;
+    color: green;
+    margin-bottom: 15px;
+}
+
+.no-users {
+    text-align: center;
+    font-size: 16px;
+    color: #e53e3e;
+}

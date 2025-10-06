@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+    <div class="admin-container">
+        <h1>👑 Welcome, Admin</h1>
+
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
+
+        <!-- Search -->
+        <form method="GET" action="{{ url_for('searchUsername', username=username) }}" class="search-form">
+            <input type="text" name="username" placeholder="🔍 Search by username">
+            <button type="submit" class="btn btn-search">Search</button>
+        </form>
+
+        <!-- User Table -->
+        {% if users %}
+        <div class="table-container">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Delete</th>
+                        <th>Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.password }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('delete_user', username=user.username) }}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                        <td>
+                            <button class="btn btn-warning" onclick="window.location.href='/changepassword.html/{{ user.username }}'">Change Password</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="no-users">🚫 No users found.</p>
+        {% endif %}
+
+        <!-- Logout -->
+        <form method="POST" action="{{ url_for('logout') }}">
+            <button type="submit" class="btn btn-logout">Logout</button>
+        </form>
+    </div>
+</body>
+</html>

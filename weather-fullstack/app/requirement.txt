@@ -1,0 +1,6 @@
+flask
+flask_sqlalchemy
+routes
+psycopg2-binary
+dotenv
+requests
