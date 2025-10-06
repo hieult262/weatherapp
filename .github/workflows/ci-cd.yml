@@ -32,7 +32,7 @@ jobs:
       
       - name: Decrypt .evn file
         run: |
-          gqg --quiet --batch --yes --decrypt --passphrase="${{ secrets.ENV_PASSPHRASE }}" --output .env .env.gpg
+          gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.ENV_PASSPHRASE }}" --output .env .env.gpg
 
       - name: Build and push Docker image
         run: |
