@@ -35,11 +35,11 @@ spec:
                 - key: topology.kubernetes.io/zone
                   operator: In 
                   values:
-                    - ap-southeast-2a
+                    - ap-southeast-2b
                 - key: kubernetes.io/hostname
                   operator: In
                   values:
-                    - ip-172-0-1-29.ap-southeast-2.compute.internal
+                    - ip-172-0-1-50.ap-southeast-2.compute.internal
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
