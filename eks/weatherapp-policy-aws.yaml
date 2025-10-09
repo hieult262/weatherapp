@@ -15,9 +15,6 @@ spec:
     - ports:
       - port: "5432"
         protocol: TCP
-  egress:
-  - toEntities:
-    - all
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
@@ -29,11 +26,9 @@ spec:
     matchLabels:
       app: weatherapp
   ingress:
-  # - fromEntities:
-  #   - world
   - fromCIDR:
+    - 172.0.0.28/32
     - 172.0.0.51/32
-    - 172.0.0.25/32
     toPorts:
     - ports:
       - port: "5000"
@@ -41,4 +36,3 @@ spec:
   egress:
   - toEntities:
     - all
-
