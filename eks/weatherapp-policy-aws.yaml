@@ -36,17 +36,3 @@ spec:
   egress:
   - toEntities:
     - all
-  - toEndpoints:
-    - matchLabels:
-        k8s-app: kube-dns
-      matchExpressions:
-        - key: io.kubernetes.pod.namespace
-          operator: In
-          values:
-            - kube-system
-    toPorts:
-      - ports:
-          - port: "53"
-            protocol: UDP
-          - port: "53"
-            protocol: TCP
