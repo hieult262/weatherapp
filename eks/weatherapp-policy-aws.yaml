@@ -50,3 +50,10 @@ spec:
             protocol: UDP
           - port: "53"
             protocol: TCP
+  - toEndpoints:
+      - matchLabels:
+          app: postgre-database
+    toPorts:
+      - ports:
+          - port: "5432"
+            protocol: TCP
