@@ -160,5 +160,17 @@ def update_location():
 
 if __name__== "__main__":
     with app.app_context():
-        db.create_all()
+        for i in range(10):  # Thử lại tối đa 10 lần
+            try:
+                db.session.execute("SELECT 1")
+                print("✅ Database connection successful!")
+                db.create_all()
+                break
+            except OperationalError as e:
+                print(f"⚠️ Database not ready (attempt {i+1}/10): {e}")
+                time.sleep(5)  # Chờ 5s rồi thử lại
+        else:
+            print("❌ Could not connect to database after multiple attempts.")
+            exit(1)
+
     app.run(host="0.0.0.0", port="5000")
