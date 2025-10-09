@@ -1,9 +1,10 @@
-import os
+import os, time
 from flask import Flask, request, jsonify, session, redirect, url_for, render_template
 from models import db, User, Weather
 from config import config
 from weather import get_weather
 from dotenv import load_dotenv
+from sqlalchemy.exc import OperationalError
 
 load_dotenv()
 app = Flask(__name__,template_folder="template")
