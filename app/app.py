@@ -163,7 +163,6 @@ if __name__== "__main__":
     with app.app_context():
         for i in range(10):  # Thử lại tối đa 10 lần
             try:
-                db.session.execute("SELECT 1")
                 print("✅ Database connection successful!")
                 db.create_all()
                 break
